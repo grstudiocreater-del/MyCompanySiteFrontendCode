@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="cp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="cp-bolt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="100%" stop-color="#FACC15" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#cp-bg)" />
+  <rect x="1" y="1" width="126" height="126" rx="31" stroke="#34D399" stroke-width="2" stroke-opacity="0.4" />
+  <!-- Battery body -->
+  <rect x="36" y="34" width="56" height="68" rx="16" fill="#064E3B" stroke="#A7F3D0" stroke-width="4" />
+  <rect x="52" y="24" width="24" height="8" rx="3" fill="#A7F3D0" />
+  <!-- Electric Lightning Bolt -->
+  <path d="M68 44 L48 72 L62 72 L58 92 L80 64 L66 64 Z" fill="url(#cp-bolt)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+  <!-- Pulse dots -->
+  <circle cx="48" cy="112" r="3" fill="#A7F3D0" />
+  <circle cx="64" cy="112" r="4" fill="#FFFFFF" />
+  <circle cx="80" cy="112" r="3" fill="#A7F3D0" />
+</svg>

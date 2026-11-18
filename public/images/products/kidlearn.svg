@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="kl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E1B4B" />
+    </linearGradient>
+    <linearGradient id="kl-grad-spark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#kl-bg)" />
+  <rect x="1" y="1" width="126" height="126" rx="31" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.3" />
+  
+  <!-- Playful Graduation cap & star motif -->
+  <path d="M64 30 L98 48 L64 66 L30 48 Z" fill="url(#kl-grad-spark)" />
+  <path d="M46 58 V78 C46 88 82 88 82 78 V58" fill="none" stroke="#F43F5E" stroke-width="4" stroke-linecap="round" />
+  <path d="M98 48 V72" stroke="#FACC15" stroke-width="3" stroke-linecap="round" />
+  <circle cx="98" cy="74" r="4" fill="#FACC15" />
+
+  <!-- Colorful Learning ABC blocks -->
+  <rect x="30" y="86" width="20" height="20" rx="6" fill="#F59E0B" />
+  <text x="40" y="101" font-family="sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">A</text>
+
+  <rect x="54" y="86" width="20" height="20" rx="6" fill="#10B981" />
+  <text x="64" y="101" font-family="sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">B</text>
+
+  <rect x="78" y="86" width="20" height="20" rx="6" fill="#3B82F6" />
+  <text x="88" y="101" font-family="sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">C</text>
+</svg>

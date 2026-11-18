@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="gr-grad-primary" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#3B3BF5" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="gr-grad-glow" x1="120" y1="120" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B3BF5" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.05" />
+    </linearGradient>
+    <filter id="gr-glow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Ambient background glow -->
+  <circle cx="256" cy="256" r="180" fill="url(#gr-grad-glow)" filter="blur(32px)" />
+
+  <!-- Monogram Mark: Interlocking geometric G & R -->
+  <g filter="url(#gr-glow)">
+    <!-- 'G' Outer Sweeping Ribbon -->
+    <path 
+      d="M280 132 C210 132 144 186 144 256 C144 326 208 380 280 380 C340 380 380 344 380 292 L380 272 L268 272" 
+      stroke="url(#gr-grad-primary)" 
+      stroke-width="38" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+
+    <!-- 'R' Inner Loop and Diagonal Dynamic Kick -->
+    <path 
+      d="M268 184 L268 328 M268 184 C314 184 344 204 344 238 C344 268 318 284 268 284 M308 280 L362 380" 
+      stroke="#FFFFFF" 
+      stroke-width="32" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      opacity="0.95"
+    />
+
+    <!-- Subtle studio spark / accent node -->
+    <circle cx="362" cy="380" r="10" fill="#38BDF8" />
+  </g>
+</svg>

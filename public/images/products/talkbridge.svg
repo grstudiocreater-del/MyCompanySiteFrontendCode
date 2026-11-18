@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="tb-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="tb-infinity" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#EC4899" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#tb-bg)" />
+  <rect x="1" y="1" width="126" height="126" rx="31" stroke="#06B6D4" stroke-width="2" stroke-opacity="0.35" />
+  
+  <!-- Luminous TalkBridge Infinity Wave -->
+  <path d="M42 48 C30 48 24 56 24 64 C24 72 30 80 42 80 C56 80 72 48 86 48 C98 48 104 56 104 64 C104 72 98 80 86 80 C72 80 56 48 42 48 Z" 
+        stroke="url(#tb-infinity)" 
+        stroke-width="12" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+        
+  <!-- Voice Wave Nodes -->
+  <circle cx="36" cy="64" r="4" fill="#06B6D4" />
+  <circle cx="92" cy="64" r="4" fill="#EC4899" />
+  
+  <text x="64" y="108" font-family="sans-serif" font-weight="800" font-size="11" fill="#C084FC" letter-spacing="1.5" text-anchor="middle">TALKBRIDGE</text>
+</svg>

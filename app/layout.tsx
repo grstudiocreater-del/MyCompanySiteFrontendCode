@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { brand, defaultTitle } from "@/lib/brand";
 import { OG_IMAGE } from "@/lib/metadata";
+import { InspectLock } from "@/components/layout/InspectLock";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -42,12 +43,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/gr-logo.png" },
-      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico?v=2" },
+      { url: "/icon.png?v=2", sizes: "32x32", type: "image/png" },
+      { url: "/images/gr-logo.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png?v=2", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: "/favicon.ico?v=2",
   },
 };
 
@@ -63,7 +66,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-[#09090b] text-[#f4f4f5] selection:bg-blue-600/30 selection:text-white">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#09090b] text-[#f4f4f5] select-none">
+        <InspectLock />
+        {children}
+      </body>
     </html>
   );
 }

@@ -27,6 +27,7 @@ export default function SupportPage() {
         eyebrow="Support"
         title="How can we help?"
         description="Start with the common questions below. If you can't find what you need, get in touch and include as much detail as you can."
+        border={false}
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button href="/contact" arrow>
@@ -39,14 +40,14 @@ export default function SupportPage() {
       </PageHeader>
 
       {/* Product support */}
-      <section aria-labelledby="product-support-title" className="pb-20 sm:pb-28">
+      <section aria-labelledby="product-support-title" className="pt-6 sm:pt-8 pb-16 sm:pb-24">
         <Container>
           <Reveal>
             <h2 id="product-support-title" className="font-mono text-xs tracking-[0.14em] text-muted uppercase">
               Product support
             </h2>
           </Reveal>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((product, index) => (
               <Reveal as="li" key={product.slug} delay={index * 60}>
                 <Card interactive className="group flex h-full flex-col p-6">

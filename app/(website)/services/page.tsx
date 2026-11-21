@@ -29,7 +29,7 @@ export default function ServicesPage() {
         </Button>
       </PageHeader>
 
-      <section aria-label="All services" className="pb-12">
+      <section aria-label="All services" className="pt-10 sm:pt-14 pb-16 sm:pb-24">
         <Container>
           <ul className="border-t border-line">
             {services.map((service) => (

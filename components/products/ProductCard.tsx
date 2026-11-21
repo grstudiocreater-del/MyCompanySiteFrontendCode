@@ -37,11 +37,13 @@ export function ProductCard({ product, layout = "default", headingLevel: Heading
           name={product.name}
           artwork={product.artwork}
           icon={product.icon}
+          banner={product.banner}
           image={product.images[0]}
           eager={eager}
           alt={`${product.name} illustration`}
           className={cn(
-            "aspect-[4/3] transition-transform duration-500 ease-soft group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-focus-within:scale-[1.04]",
+            product.banner ? "aspect-[16/9.5]" : "aspect-[4/3]",
+            "transition-transform duration-500 ease-soft group-hover:-translate-y-0.5 group-hover:scale-[1.02] group-focus-within:scale-[1.02]",
             wide && "lg:aspect-auto lg:h-full lg:min-h-[420px]",
           )}
         />

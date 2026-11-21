@@ -206,6 +206,7 @@ type ProductVisualProps = {
   /** Image path; ignored if the file doesn't exist in /public. */
   image?: string;
   icon?: string;
+  banner?: string;
   artwork?: ProductArtwork;
   alt: string;
   className?: string;
@@ -222,6 +223,7 @@ export function ProductVisual({
   name,
   image,
   icon,
+  banner,
   artwork,
   alt,
   className,
@@ -230,6 +232,7 @@ export function ProductVisual({
 }: ProductVisualProps) {
   const Art = artwork ? artworks[artwork] : null;
   const targetImg = assetExists(image) ? image : assetExists(icon) ? icon : null;
+  const bannerImg = assetExists(banner) ? banner : null;
 
   return (
     <div className={cn("@container relative overflow-hidden bg-[#0d0d12] border-b border-white/10", className)}>
@@ -243,9 +246,21 @@ export function ProductVisual({
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-40 rounded-full bg-blue-600/20 blur-2xl"
       />
 
-      {targetImg ? (
+      {bannerImg ? (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-[#07070a]">
+          <Image
+            src={bannerImg}
+            alt={alt}
+            fill
+            sizes={sizes}
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : "auto"}
+            className="object-contain object-center transition-transform duration-500 ease-soft group-hover:scale-[1.02]"
+          />
+        </div>
+      ) : targetImg ? (
         <div className="absolute inset-0 flex items-center justify-center p-6">
-          <div className="relative size-28 sm:size-32 rounded-[28px] overflow-hidden shadow-2xl shadow-black ring-1 ring-white/20 transition-transform duration-500 ease-soft group-hover:scale-105 group-hover:-translate-y-1">
+          <div className="relative size-28 sm:size-32 rounded-[28px] overflow-hidden shadow-2xl shadow-black ring-1 ring-white/20 bg-[#101017] transition-transform duration-500 ease-soft group-hover:scale-105 group-hover:-translate-y-1">
             <Image
               src={targetImg}
               alt={alt}
@@ -253,7 +268,7 @@ export function ProductVisual({
               sizes={sizes}
               loading={eager ? "eager" : "lazy"}
               fetchPriority={eager ? "high" : "auto"}
-              className="object-contain p-2"
+              className="object-cover"
             />
           </div>
         </div>

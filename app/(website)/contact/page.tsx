@@ -28,9 +28,10 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Let's talk."
         description="Have an idea worth building, a question about a product, or just want to say hello? Send us a message."
+        border={false}
       />
 
-      <section aria-label="Contact options" className="pb-24 sm:pb-32">
+      <section aria-label="Contact options" className="pt-2 pb-20 sm:pt-4 sm:pb-28">
         <Container className="grid gap-8 lg:grid-cols-[0.8fr_1.4fr] lg:gap-12">
           <aside className="space-y-6">
             <Card tone="sand" className="p-7">

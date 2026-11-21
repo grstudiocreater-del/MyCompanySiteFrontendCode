@@ -17,6 +17,8 @@ export type Product = {
   description: string;
   /** Product icon in /public, e.g. "/icons/product-name.svg". */
   icon?: string;
+  /** Feature / promotional background graphic (e.g. 1024x500 Google Play banner). */
+  banner?: string;
   /**
    * Product images in /public, e.g. "/images/products/product-name-1.webp".
    * The first image is the hero/card image; all images appear as screenshots.

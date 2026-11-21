@@ -14,7 +14,7 @@ import { Tag } from "@/components/ui/Tag";
 import { getProduct, products } from "@/data/products";
 import { assetExists } from "@/lib/assets";
 import { createMetadata } from "@/lib/metadata";
-import { pad } from "@/lib/utils";
+import { cn, pad } from "@/lib/utils";
 
 // Unknown slugs get the static 404 page instead of an on-demand render.
 export const dynamicParams = false;
@@ -41,7 +41,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
   if (!product) notFound();
 
   const paragraphs = product.description.split(/\n\s*\n/).filter(Boolean);
-  const screenshots = product.images.filter((src) => assetExists(src));
+  const screenshots = product.images.filter(
+    (src) => assetExists(src) && src !== product.icon && !src.includes("-v2"),
+  );
   const links = product.links ?? [];
   const others = products.filter((item) => item.slug !== product.slug).slice(0, 3);
 
@@ -118,10 +120,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 name={product.name}
                 image={product.images[0]}
                 icon={product.icon}
+                banner={product.banner}
                 artwork={product.artwork}
                 alt={`${product.name} preview`}
                 eager
-                className="aspect-[5/4] rounded-[32px] border border-line"
+                className={cn(
+                  "rounded-[32px] border border-white/10 shadow-2xl overflow-hidden bg-[#07070a]",
+                  product.banner ? "aspect-[16/9]" : "aspect-[5/4] border-line",
+                )}
               />
             </div>
           </div>
@@ -159,33 +165,41 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
         </Container>
       </section>
 
-      {/* Screenshots — only images that exist are shown */}
+      {/* Screenshots & Feature Showcase — only non-icon images that exist are shown */}
       {screenshots.length > 0 && (
-        <section aria-labelledby="screens-title" className="bg-sand/60 py-20 sm:py-28">
+        <section aria-labelledby="screens-title" className="border-t border-white/10 bg-[#09090e] py-20 sm:py-28">
           <Container>
             <Reveal>
-              <Eyebrow>Screenshots</Eyebrow>
-              <h2 id="screens-title" className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">
+              <Eyebrow>Showcase &amp; Details</Eyebrow>
+              <h2 id="screens-title" className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">
                 A closer look
               </h2>
             </Reveal>
-            <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {screenshots.map((src, index) => (
-                <Reveal as="li" key={src} delay={index * 90}>
-                  <div className="group overflow-hidden rounded-3xl border border-line bg-paper p-2">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-sand">
-                      <Image
-                        src={src}
-                        alt={`${product.name} screenshot ${index + 1}`}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.03]"
-                      />
+            <div className="mt-12 space-y-8">
+              {screenshots.map((src, index) => {
+                const isWide = src.includes("banner") || src.includes("feature") || src === product.banner;
+                return (
+                  <Reveal key={src} delay={index * 90}>
+                    <div className="group overflow-hidden rounded-[28px] border border-white/10 bg-[#121218] p-3 sm:p-5 shadow-2xl">
+                      <div
+                        className={cn(
+                          "relative overflow-hidden rounded-[20px] bg-[#07070a] flex items-center justify-center",
+                          isWide ? "aspect-[16/9] sm:aspect-[2/1] w-full" : "aspect-[4/5] max-w-sm mx-auto",
+                        )}
+                      >
+                        <Image
+                          src={src}
+                          alt={`${product.name} showcase ${index + 1}`}
+                          fill
+                          sizes={isWide ? "100vw" : "(min-width: 1024px) 33vw, 100vw"}
+                          className="object-contain object-center transition-transform duration-500 ease-soft group-hover:scale-[1.02]"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </Reveal>
-              ))}
-            </ul>
+                  </Reveal>
+                );
+              })}
+            </div>
           </Container>
         </section>
       )}
@@ -193,35 +207,43 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       {/* Links + support */}
       <section aria-label="Links and support" className="py-20 sm:py-28">
         <Container className="grid gap-6 lg:grid-cols-2">
-          <Reveal>
-            <Card radius="lg" className="flex h-full flex-col p-8 sm:p-10">
-              <Eyebrow>{links.length > 0 ? "Product links" : "Questions"}</Eyebrow>
-              <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] text-ink">
-                {links.length > 0 ? `Get ${product.name}` : `Curious about ${product.name}?`}
-              </h2>
-              {links.length > 0 ? (
-                <ul className="mt-6 space-y-2">
-                  {links.map((link) => {
-                    const external = link.href.startsWith("http");
-                    return (
-                      <li key={link.href}>
-                        <a
-                          href={link.href}
-                          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="group inline-flex items-center gap-2 text-lg font-medium text-ink hover:text-accent"
-                        >
-                          {link.label}
-                          <Icon name="arrow-up-right" size={18} className="transition-transform duration-300 ease-soft group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          {external && <span className="sr-only">(opens in a new tab)</span>}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <p className="mt-3 max-w-md leading-relaxed text-muted">Ask us anything about what it does or how to get it.</p>
-              )}
-              <div className="mt-auto pt-8">
+          <Reveal className="h-full">
+            <Card radius="lg" className="flex h-full flex-col justify-between p-8 sm:p-10">
+              <div>
+                <Eyebrow>{links.length > 0 ? "Product links" : "Questions"}</Eyebrow>
+                <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] text-white">
+                  {links.length > 0 ? `Get ${product.name}` : `Curious about ${product.name}?`}
+                </h2>
+                {links.length > 0 ? (
+                  <ul className="mt-6 space-y-3">
+                    {links.map((link) => {
+                      const external = link.href.startsWith("http");
+                      return (
+                        <li key={link.href}>
+                          <a
+                            href={link.href}
+                            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            className="group inline-flex items-center gap-2 text-lg font-medium text-zinc-200 transition-colors duration-200 hover:text-blue-400"
+                          >
+                            <span>{link.label}</span>
+                            <Icon
+                              name="arrow-up-right"
+                              size={18}
+                              className="text-zinc-400 transition-transform duration-300 ease-soft group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-400"
+                            />
+                            {external && <span className="sr-only">(opens in a new tab)</span>}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="mt-3 max-w-md leading-relaxed text-zinc-400">
+                    Ask us anything about what it does or how to get it.
+                  </p>
+                )}
+              </div>
+              <div className="mt-8 pt-4">
                 <Button href="/contact" variant="secondary" arrow>
                   Ask a question
                 </Button>
@@ -229,23 +251,25 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             </Card>
           </Reveal>
 
-          <Reveal delay={90} className="flex flex-col justify-between rounded-[32px] bg-ink p-8 text-white sm:p-10">
-            <div>
-              <span className="grid size-12 place-items-center rounded-2xl bg-white/10 text-white">
-                <Icon name="lifebuoy" size={22} />
-              </span>
-              <h2 className="mt-6 font-display text-3xl font-semibold tracking-[-0.03em]">Need help?</h2>
-              <p className="mt-3 max-w-md leading-relaxed text-white/75">
-                Check the support page for common questions, or send us a message about {product.name}.
-              </p>
-            </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/support" variant="inverse" arrow>
-                Visit support
-              </Button>
-              <Button href="/contact" variant="outline-inverse">
-                Contact us
-              </Button>
+          <Reveal delay={90} className="h-full">
+            <div className="flex h-full flex-col justify-between rounded-[32px] border border-blue-500/25 bg-gradient-to-br from-[#121218] via-[#16162a] to-[#121218] p-8 text-white shadow-2xl backdrop-blur-md sm:p-10">
+              <div>
+                <span className="grid size-12 place-items-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                  <Icon name="lifebuoy" size={22} />
+                </span>
+                <h2 className="mt-6 font-display text-3xl font-semibold tracking-[-0.03em] text-white">Need help?</h2>
+                <p className="mt-3 max-w-md leading-relaxed text-zinc-400">
+                  Check the support page for common questions, or send us a message about {product.name}.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button href="/support" variant="primary" arrow>
+                  Visit support
+                </Button>
+                <Button href="/contact" variant="secondary">
+                  Contact us
+                </Button>
+              </div>
             </div>
           </Reveal>
         </Container>

@@ -36,7 +36,7 @@ export default function ProductsPage() {
         </ul>
       </PageHeader>
 
-      <section aria-label="All products" className="pb-24 sm:pb-32">
+      <section aria-label="All products" className="pt-12 sm:pt-16 pb-24 sm:pb-32">
         <Container>
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {featured && (

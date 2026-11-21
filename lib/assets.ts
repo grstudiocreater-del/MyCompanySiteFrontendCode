@@ -1,12 +1,9 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-
 /**
- * Server-only: true when a local asset (e.g. "/images/products/x.webp") exists in /public.
- * Remote URLs are trusted as-is. Lets components show a placeholder instead of a broken image.
+ * Validates whether an asset path is specified.
+ * Works across local dev, node runtime, and edge/serverless environments (like Cloudflare Workers)
+ * where local filesystem access via node:fs is not available because static files are served via CDN/ASSETS.
  */
-export function assetExists(src: string | undefined): src is string {
-  if (!src) return false;
-  if (/^https?:\/\//.test(src)) return true;
-  return existsSync(join(process.cwd(), "public", src));
+export function assetExists(src: string | undefined | null): src is string {
+  if (!src || typeof src !== "string" || src.trim() === "") return false;
+  return src.startsWith("/") || /^https?:\/\//.test(src);
 }

@@ -32,3 +32,6 @@ export const brand = {
 
 /** Page title used on the home page and as the default elsewhere. */
 export const defaultTitle = `${brand.name} — Digital Products & Software`;
+
+export type Brand = typeof brand;
+

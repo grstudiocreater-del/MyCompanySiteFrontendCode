@@ -1,23 +1,23 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "grstudiocreator",
+  "name": "grstudiocreaterweb",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2024-09-23",
+  "compatibility_date": "2024-12-30",
   "compatibility_flags": [
     "nodejs_compat"
   ],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS"
   },
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "grstudiocreator"
+      "service": "grstudiocreaterweb"
     }
   ],
   "vars": {
-    "CONTACT_FROM_EMAIL": "GR Studio Creator <onboarding@resend.dev>"
+    "CONTACT_FROM_EMAIL": "GR Studio Creator <onboarding@resend.dev>",
+    "NEXT_PUBLIC_SITE_URL": "https://grstudiocreaterweb.grstudiocreater.workers.dev"
   }
 }
